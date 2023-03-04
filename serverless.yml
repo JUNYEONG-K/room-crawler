@@ -1,0 +1,24 @@
+service: room
+provider:
+  name: aws
+  runtime: nodejs16.x
+
+plugins:
+  - serverless-offline
+
+package:
+  exclude:
+    - node_modules/puppeteer/.local-chromium/**
+
+functions:
+  hello:
+    handler: handler.hello
+    timeout: 30
+    events:
+      - http:
+          path: /
+          method: get
+          request:
+            parameters:
+              querystrings:
+                url: true
